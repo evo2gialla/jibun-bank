@@ -1,9 +1,11 @@
 {
   "name": "じぶん銀行スマート入金",
   "short_name": "スマート入金",
-  "start_url": "index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
+  "theme_color": "#0078D7",
   "description": "簡単に金額登録できるPWAアプリ",
   "icons": [
     {
@@ -16,6 +18,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#0078D7"
+  ]
 }
