@@ -1,1 +1,20 @@
 
+<script>
+  function submitAmount() {
+    const input = document.getElementById("amount");
+    const amount = input.value.trim(); // 空白除去も追加
+
+    if (amount !== "") {
+      alert("入金額：" + amount + "円を登録しました。");
+
+      // ここで Tasker 連携や送信処理などを追加できる
+      input.value = ""; // 入力欄をクリア
+    } else {
+      alert("金額を入力してください。");
+    }
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
