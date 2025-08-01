@@ -1,4 +1,21 @@
-<!DOCTYPE html>
+<input type="text" id="amount" />
+<button onclick="submitAmount()">登録</button>
+
+<script>
+  function submitAmount() {
+    const input = document.getElementById("amount");
+    const value = input.value.trim();
+
+    console.log("入力された値:", value); // ←ここがキモ
+
+    if (value !== "") {
+      alert("入金額：" + value + "円を登録しました。");
+      input.value = "";
+    } else {
+      alert("金額を入力してください。");
+    }
+  }
+</script><!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
