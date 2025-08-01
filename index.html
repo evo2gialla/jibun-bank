@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>じぶん銀行スマート入金</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon-192.png">
+  <meta name="theme-color" content="#0078D7">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1.4rem;
+      width: 180px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background: #0078D7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:active {
+      background: #005ea1;
+    }
+  </style>
+</head>
+<body>
+  <h1>じぶん銀行スマート入金</h1>
+  <input type="number" id="amount" placeholder="金額を入力">
+  <br>
+  <button onclick="submitAmount()">登録</button>
 
+  <script>
+    function submitAmount() {
+      const input = document.getElementById("amount");
+      const value = input.value.trim();
+      if (value !== "") {
+        alert("入金額：" + value + "円を登録しました。");
+        input.value = ""; // 入力欄をクリア
+      } else {
+        alert("金額を入力してください。");
+      }
+    }
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js");
+    }
+  </script>
+</body>
+</html>
