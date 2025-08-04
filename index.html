@@ -13,7 +13,7 @@
     input[type="number"] {
       font-size: 1.2em;
       padding: 0.4em;
-      width: 150px;
+      width: 180px;
     }
     button {
       font-size: 1.2em;
@@ -53,11 +53,15 @@
       const input = document.getElementById("amount");
       const value = parseInt(input.value, 10);
       if (!isNaN(value)) {
-        depositHistory.push(value);
+        const record = {
+          amount: value,
+          date: new Date().toLocaleString()
+        };
+        depositHistory.push(record);
         saveHistory();
         updateHistory();
         input.value = "";
-        alert(value + "円を登録しました。");
+        alert(`${value}円を登録しました（${record.date}）`);
       } else {
         alert("正しい金額を入力してください。");
       }
@@ -66,9 +70,9 @@
     function updateHistory() {
       const list = document.getElementById("historyList");
       list.innerHTML = "";
-      depositHistory.forEach((amount, index) => {
+      depositHistory.forEach((record, index) => {
         const item = document.createElement("li");
-        item.textContent = `#${index + 1} - ${amount}円`;
+        item.textContent = `#${index + 1} - ${record.amount}円（${record.date}）`;
         list.appendChild(item);
       });
     }
@@ -85,7 +89,8 @@
       }
     }
 
-    loadHistory();
+    // 起動時に履歴を読み込む
+    window.addEventListener("DOMContentLoaded", loadHistory);
   </script>
 </body>
 </html>
