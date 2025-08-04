@@ -10,7 +10,7 @@
       margin: 2em;
       background: #f5f5f5;
     }
-    input {
+    input[type="number"] {
       font-size: 1.2em;
       padding: 0.4em;
       width: 150px;
@@ -19,12 +19,17 @@
       font-size: 1.2em;
       padding: 0.4em 1em;
       margin-left: 0.5em;
+      cursor: pointer;
     }
     #history {
       margin-top: 2em;
       background: #fff;
       padding: 1em;
       border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    #history h2 {
+      margin-top: 0;
     }
     #history ul {
       padding-left: 1.2em;
@@ -49,8 +54,9 @@
       const value = parseInt(input.value, 10);
       if (!isNaN(value)) {
         depositHistory.push(value);
+        saveHistory();
+        updateHistory();
         input.value = "";
-        updateHistory(); // 履歴表示も更新
         alert(value + "円を登録しました。");
       } else {
         alert("正しい金額を入力してください。");
@@ -59,13 +65,27 @@
 
     function updateHistory() {
       const list = document.getElementById("historyList");
-      list.innerHTML = ""; // 一旦クリア
+      list.innerHTML = "";
       depositHistory.forEach((amount, index) => {
         const item = document.createElement("li");
         item.textContent = `#${index + 1} - ${amount}円`;
         list.appendChild(item);
       });
     }
+
+    function saveHistory() {
+      localStorage.setItem("depositHistory", JSON.stringify(depositHistory));
+    }
+
+    function loadHistory() {
+      const saved = localStorage.getItem("depositHistory");
+      if (saved) {
+        depositHistory.push(...JSON.parse(saved));
+        updateHistory();
+      }
+    }
+
+    loadHistory();
   </script>
 </body>
 </html>
