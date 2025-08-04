@@ -1,19 +1,71 @@
-<input type="text" id="amount" />
-<button onclick="submitAmount()">登録</button>
-
-<script>
-  function submitAmount() {
-    const depositHistory = []; // 履歴の保持構造（配列）
-    const input = document.getElementById("amount");
-    const value = input.value.trim();
-
-    console.log("入力された値:", value); // ←ここがキモ
-
-    if (value !== "") {
-      alert("入金額：" + value + "円を登録しました。");
-      input.value = "";
-    } else {
-      alert("金額を入力してください。");
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>金額登録システム</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+      background: #f5f5f5;
     }
-  }
-</script>
+    input {
+      font-size: 1.2em;
+      padding: 0.4em;
+      width: 150px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 0.4em 1em;
+      margin-left: 0.5em;
+    }
+    #history {
+      margin-top: 2em;
+      background: #fff;
+      padding: 1em;
+      border-radius: 8px;
+    }
+    #history ul {
+      padding-left: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>金額登録</h1>
+  <input type="number" id="amount" placeholder="金額を入力" />
+  <button onclick="submitAmount()">登録</button>
+
+  <div id="history">
+    <h2>登録履歴</h2>
+    <ul id="historyList"></ul>
+  </div>
+
+  <script>
+    const depositHistory = [];
+
+    function submitAmount() {
+      const input = document.getElementById("amount");
+      const value = parseInt(input.value, 10);
+      if (!isNaN(value)) {
+        depositHistory.push(value);
+        input.value = "";
+        updateHistory(); // 履歴表示も更新
+        alert(value + "円を登録しました。");
+      } else {
+        alert("正しい金額を入力してください。");
+      }
+    }
+
+    function updateHistory() {
+      const list = document.getElementById("historyList");
+      list.innerHTML = ""; // 一旦クリア
+      depositHistory.forEach((amount, index) => {
+        const item = document.createElement("li");
+        item.textContent = `#${index + 1} - ${amount}円`;
+        list.appendChild(item);
+      });
+    }
+  </script>
+</body>
+</html>
